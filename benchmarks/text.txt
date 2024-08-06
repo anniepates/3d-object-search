@@ -4,122 +4,124 @@ Unit Tests
 Functionality Tests:
 Test each function with valid and invalid inputs.
 Ensure correct outputs for known inputs.
+
 Edge Cases:
 Empty inputs.
 Extremely large inputs.
 Inputs with special characters, punctuations, etc.
+
 Integration Tests:
 Ensure that functions work together correctly.
 Test the entire flow from reading CSV to building the graph.
-Performance Tests
 
+Performance Tests
 Measure time taken for each function with varying input sizes.
 Profile memory usage and CPU usage.
-Robustness Tests
 
+Robustness Tests
 Test with malformed CSV files.
 Test with missing values in CSV.
 Test with non-string inputs where applicable.
-Code Coverage
 
+Code Coverage
 Ensure that all lines of code are tested.
 Highlight untested paths.
 Test Cases
+
 1. create_dictionary(file_name)
 Test valid CSV file:
-
 Input: CSV with columns 'id' and 'content'.
 Expected Output: Dictionary with 'id' as keys and 'content' as values.
-Test CSV with missing values:
 
+Test CSV with missing values:
 Input: CSV with some missing 'content' values.
 Expected Output: Dictionary with missing values handled appropriately (e.g., empty string).
-Test invalid CSV file:
 
+Test invalid CSV file:
 Input: Malformed CSV.
 Expected Output: Handle error gracefully, possibly raise an exception.
+
 2. keyword_helper(content)
 Test normal string input:
-
 Input: "This is a test string for keyword extraction."
 Expected Output: List of keywords excluding stop words and punctuation.
-Test empty string:
 
+Test empty string:
 Input: ""
 Expected Output: Empty list.
-Test string with only stop words and punctuation:
 
+Test string with only stop words and punctuation:
 Input: "and, or, but, the, ..."
 Expected Output: Empty list.
+
 3. keyword_summaries(summaries)
 Test dictionary with valid summaries:
-
 Input: {"1": "This is a summary.", "2": "Another summary here."}
 Expected Output: {"1": ["summary"], "2": ["another", "summary"]}
-Test empty dictionary:
 
+Test empty dictionary:
 Input: {}
 Expected Output: {}
+
 4. match_keywords(query_list, entry_list)
 Test lists with common and uncommon keywords:
-
 Input: (["keyword1", "keyword2"], ["keyword2", "keyword3"])
 Expected Output: ["keyword2"]
-Test empty lists:
 
+Test empty lists:
 Input: ([], [])
 Expected Output: []
+
 5. create_kw_edges(summary_kws)
 Test with valid summary keywords:
-
 Input: {"1": ["keyword1", "keyword2"], "2": ["keyword2", "keyword3"]}
 Expected Output: List of tuples representing edges with weights.
-Test with empty summary keywords:
 
+Test with empty summary keywords:
 Input: {}
 Expected Output: Empty list.
+
 6. build_kw_graph(kws)
 Test with valid keywords:
-
 Input: {"1": ["keyword1", "keyword2"], "2": ["keyword2", "keyword3"]}
 Expected Output: NetworkX graph object.
-Test with empty keywords:
 
+Test with empty keywords:
 Input: {}
 Expected Output: NetworkX graph object with no nodes or edges.
+
 7. load_seg_similaritites(file_name)
 Test valid CSV file:
-
 Input: CSV with segment similarity data.
 Expected Output: DataFrame with segment similarities.
-Test invalid CSV file:
 
+Test invalid CSV file:
 Input: Malformed CSV.
 Expected Output: Handle error gracefully, possibly raise an exception.
+
 8. create_seg_edges(seg_ids, file_name)
 Test with valid segment IDs and similarity file:
-
 Input: {"1": ["seg1", "seg2"], "2": ["seg2", "seg3"]}, valid CSV file.
 Expected Output: List of tuples representing edges with weights.
-Test with empty segment IDs:
 
+Test with empty segment IDs:
 Input: {}, valid CSV file.
 Expected Output: Empty list.
+
 9. build_seg_graph(kws, file_name)
 Test with valid segment IDs and similarity file:
-
 Input: {"1": ["seg1", "seg2"], "2": ["seg2", "seg3"]}, valid CSV file.
 Expected Output: NetworkX graph object.
-Test with empty segment IDs:
 
+Test with empty segment IDs:
 Input: {}, valid CSV file.
 Expected Output: NetworkX graph object with no nodes or edges.
+
 10. update_probabilities(seg_ids, seg_similarity_file, desc_kws)
 Test with valid segment IDs, similarity file, and description keywords:
-
 Input: {"1": ["seg1", "seg2"], "2": ["seg2", "seg3"]}, valid CSV file, {"1": ["keyword1", "keyword2"], "2": ["keyword2", "keyword3"]}.
 Expected Output: Updated probabilities dictionary.
-Test with empty inputs:
 
+Test with empty inputs:
 Input: {}, valid CSV file, {}.
 Expected Output: Handle gracefully, possibly empty probabilities dictionary.
