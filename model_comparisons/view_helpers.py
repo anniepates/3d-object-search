@@ -4,7 +4,7 @@ import sys
 import shutil
 import pathlib
 import pymeshlab
-# import traceback
+import traceback
 import threading
 import numpy as np
 import pandas as pd
